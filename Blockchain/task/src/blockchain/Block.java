@@ -12,28 +12,24 @@ public class Block {
     public Block(String prevHash) {
         this.ID = currentID++;
         this.timestamp = new Date().getTime();
-        this.currentHash = calculateHash();
         this.prevHash = prevHash;
+        this.currentHash = generateHash();
     }
 
-    private String calculateHash() {
-        String hash = ID + String.valueOf(timestamp) + prevHash;
-        return StringUtil.applySha256(hash);
+    private String generateHash() {
+        return StringUtil.applySha256(ID + String.valueOf(timestamp) + prevHash);
     }
 
-    public int getID() {
-        return ID;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
+    @Override
+    public String toString() {
+        return "Block: \n" +
+                "ID: " + ID + "\n" +
+                "Timestamp: " + timestamp + "\n" +
+                "Hash of the previous block:\n" + prevHash + "\n" +
+                "Hash of the block:\n" + currentHash + "\n";
     }
 
     public String getCurrentHash() {
         return currentHash;
-    }
-
-    public String getPrevHash() {
-        return prevHash;
     }
 }
