@@ -6,8 +6,8 @@ import java.util.List;
 public class BlockChain {
     private final List<Block> blockChain = new LinkedList<>();
 
-    public void addBlock() {
-        blockChain.add(new Block(getPrevHash()));
+    public void addBlock(int requiredNumberOfZeros) {
+        blockChain.add(Block.createBlock(getPrevHash(), requiredNumberOfZeros));
     }
 
     private String getPrevHash() {
