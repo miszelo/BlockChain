@@ -6,8 +6,8 @@ import java.util.Date;
 
 class HashFactory {
 
-    public static HashInfo generateHash(String prevHash, int requiredNumberOfZeros, int minerID) {
-        int ID = ++BlockUtil.currentID;
+    public static HashInfo generateHash(String prevHash, int requiredNumberOfZeros, long minerID) {
+        int ID = ++BlockUtil2.currentID;
         long timestamp = new Date().getTime();
         String hash;
         int magicNumber;

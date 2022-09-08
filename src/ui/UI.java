@@ -10,7 +10,7 @@ public class UI {
     public void showMenu() {
 
         for (int i = 0; i < 5; i++) {
-            blockChain.addBlockToBlockChain(2);
+            blockChain.addBlockToBlockChain(i);
         }
 
         for (Block block : blockChain.getBlockChain()) {

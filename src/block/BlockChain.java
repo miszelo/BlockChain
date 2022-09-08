@@ -8,7 +8,7 @@ public class BlockChain {
     private final List<Block> blockChain = new LinkedList<>();
     private int requiredNumberOfZeros = 0;
 
-    public void addBlockToBlockChain(int minerID) {
+    public void addBlockToBlockChain(long minerID) {
         Block block;
         if (blockChain.isEmpty()) {
             block = BlockFactory.createBlock(
@@ -21,27 +21,19 @@ public class BlockChain {
                     requiredNumberOfZeros,
                     minerID);
         }
-        checkWhetherIncrementNumberOfZeros(block.hashInfo.getGeneratingTime());
+        BlockUtil.checkWhetherIncrementNumberOfZeros(block.hashInfo.getGeneratingTime(), this);
         blockChain.add(block);
-    }
-
-    private void checkWhetherIncrementNumberOfZeros(long generatingTime) {
-        if (generatingTime < BlockUtil.MIN_GENERATING_TIME) {
-            requiredNumberOfZeros++;
-        } else if (generatingTime > BlockUtil.MAX_GENERATING_TIME) {
-            requiredNumberOfZeros--;
-        }
     }
 
     public List<Block> getBlockChain() {
         return blockChain;
     }
 
-    public void setRequiredNumberOfZeros(int newRequiredNumberOfZeros) {
+    void setRequiredNumberOfZeros(int newRequiredNumberOfZeros) {
         requiredNumberOfZeros = newRequiredNumberOfZeros;
     }
 
-    public int getRequiredNumberOfZeros() {
+    int getRequiredNumberOfZeros() {
         return requiredNumberOfZeros;
     }
 }

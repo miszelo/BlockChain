@@ -8,10 +8,10 @@ class HashInfo {
     private final int magicNumber;
     private final String currentHash;
     private final long generatingTime;
-    private final int minerID;
+    private final long minerID;
     private final String increaseDecreaseMessage;
 
-    HashInfo(int ID, long timestamp, String prevHash, int magicNumber, String currentHash, long generatingTime, int numberOfZeros , int minerID) {
+    HashInfo(int ID, long timestamp, String prevHash, int magicNumber, String currentHash, long generatingTime, int numberOfZeros , long minerID) {
         this.ID = ID;
         this.timestamp = timestamp;
         this.prevHash = prevHash;
@@ -46,7 +46,7 @@ class HashInfo {
         return generatingTime;
     }
 
-    int getMinerID() {
+    long getMinerID() {
         return minerID;
     }
 
