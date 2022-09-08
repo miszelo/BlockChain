@@ -2,8 +2,7 @@ package block;
 
 public class BlockFactory {
 
-    public synchronized static Block createBlock(String prevHash, int requiredNumberOfZeros, long minerID) {
-        HashInfo hashInfo = HashFactory.generateHash(prevHash, requiredNumberOfZeros, minerID);
-        return new Block(hashInfo);
+    public static Block createBlock(HashInfo hashInfo, int blockID) {
+        return new Block(hashInfo, blockID);
     }
 }

@@ -1,8 +1,11 @@
 package block;
 
-class HashInfo {
+import lombok.AccessLevel;
+import lombok.Getter;
 
-    private final int ID;
+@Getter(AccessLevel.PACKAGE)
+public class HashInfo {
+
     private final long timestamp;
     private final String prevHash;
     private final int magicNumber;
@@ -11,8 +14,8 @@ class HashInfo {
     private final long minerID;
     private final String increaseDecreaseMessage;
 
-    HashInfo(int ID, long timestamp, String prevHash, int magicNumber, String currentHash, long generatingTime, int numberOfZeros , long minerID) {
-        this.ID = ID;
+
+    HashInfo(long timestamp, String prevHash, int magicNumber, String currentHash, long generatingTime, int numberOfZeros, long minerID) {
         this.timestamp = timestamp;
         this.prevHash = prevHash;
         this.magicNumber = magicNumber;
@@ -20,37 +23,5 @@ class HashInfo {
         this.generatingTime = generatingTime;
         this.minerID = minerID;
         increaseDecreaseMessage = BlockUtil.getIncreaseDecreaseMessage(generatingTime, numberOfZeros);
-    }
-
-    int getID() {
-        return ID;
-    }
-
-    long getTimestamp() {
-        return timestamp;
-    }
-
-    String getPrevHash() {
-        return prevHash;
-    }
-
-    int getMagicNumber() {
-        return magicNumber;
-    }
-
-    String getCurrentHash() {
-        return currentHash;
-    }
-
-    long getGeneratingTime() {
-        return generatingTime;
-    }
-
-    long getMinerID() {
-        return minerID;
-    }
-
-    String getIncreaseDecreaseMessage() {
-        return increaseDecreaseMessage;
     }
 }

@@ -12,8 +12,6 @@ final public class BlockUtil {
 
     private static final Random random = new Random();
 
-    static int currentID = 1;
-
     static boolean isHashValid(String hash, int requiredNumberOfZeros) {
         return hash.startsWith("0".repeat(requiredNumberOfZeros));
     }
@@ -40,11 +38,8 @@ final public class BlockUtil {
     }
 
     public static String getPrevHash() {
-        var blockChainList = BlockChain.getInstance().getBlockChainList();
-        if (blockChainList.isEmpty()) {
-            return DEFAULT_HASH;
-        }
-        return blockChainList.get(blockChainList.size() - 1).hashInfo.getCurrentHash();
+        var blockChain = BlockChain.getInstance().getBlockChain();
+        return blockChain.isEmpty() ? DEFAULT_HASH : blockChain.get(blockChain.size() - 1).hashInfo.getCurrentHash();
     }
 
 

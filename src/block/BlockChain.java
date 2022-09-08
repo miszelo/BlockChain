@@ -1,36 +1,34 @@
 package block;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.LinkedList;
 import java.util.List;
 
+@Getter
+@Setter(AccessLevel.PACKAGE)
 public class BlockChain {
-    private static BlockChain blockChain;
-    private final List<Block> blockChainList = new LinkedList<>();
+
+    private static BlockChain INSTANCE;
+
+    @Setter(AccessLevel.NONE)
+    private final List<Block> blockChain = new LinkedList<>();
+
     private int requiredNumberOfZeros = 0;
 
     private BlockChain() {}
 
     public static BlockChain getInstance() {
-        if (blockChain == null) {
-            blockChain = new BlockChain();
+        if (INSTANCE == null) {
+            INSTANCE = new BlockChain();
         }
-        return blockChain;
+        return INSTANCE;
     }
 
     public void addBlockToBlockChain(Block block) {
-        blockChainList.add(block);
+        blockChain.add(block);
         BlockUtil.checkWhetherIncrementNumberOfZeros(block.hashInfo.getGeneratingTime(), this);
-    }
-
-    public List<Block> getBlockChainList() {
-        return blockChainList;
-    }
-
-    void setRequiredNumberOfZeros(int newRequiredNumberOfZeros) {
-        requiredNumberOfZeros = newRequiredNumberOfZeros;
-    }
-
-    public int getRequiredNumberOfZeros() {
-        return requiredNumberOfZeros;
     }
 }

@@ -4,10 +4,9 @@ import hashing.HashUtil;
 
 import java.util.Date;
 
-class HashFactory {
+public class HashFactory {
 
-    public synchronized static HashInfo generateHash(String prevHash, int requiredNumberOfZeros, long minerID) {
-        int ID = BlockUtil.currentID;
+    public static HashInfo generateHash(String prevHash, int requiredNumberOfZeros, long minerID) {
         long timestamp = new Date().getTime();
         String hash;
         int magicNumber;
@@ -15,7 +14,8 @@ class HashFactory {
 
         do {
             magicNumber = BlockUtil.generateMagicNumber();
-            hash = HashUtil.applySha256(ID
+            hash = HashUtil.applySha256(
+                    minerID
                     + String.valueOf(timestamp)
                     + magicNumber
                     + prevHash);
@@ -23,7 +23,7 @@ class HashFactory {
 
         generatingTime = (new Date().getTime() - timestamp) / 1000;
 
-        return new HashInfo(ID, timestamp, prevHash, magicNumber, hash, generatingTime, requiredNumberOfZeros, minerID);
+        return new HashInfo(timestamp, prevHash, magicNumber, hash, generatingTime, requiredNumberOfZeros, minerID);
     }
 
 }

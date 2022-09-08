@@ -2,6 +2,8 @@ package ui;
 
 import block.Block;
 import block.BlockChain;
+import block.BlockFactory;
+import block.HashInfo;
 import mining.Miner;
 
 import java.util.HashSet;
@@ -12,20 +14,23 @@ import java.util.concurrent.Executors;
 
 public class UI {
     private final BlockChain blockChain = BlockChain.getInstance();
-    ExecutorService executorService= Executors.newFixedThreadPool(100);
-    Set<Callable<Block>> miners = new HashSet<>();
+    private final ExecutorService executorService = Executors.newFixedThreadPool(10);
+    private final Set<Callable<HashInfo>> miners = new HashSet<>();
 
     public void showMenu() throws Exception {
 
         for (int i = 0; i < 5; i++) {
             miners.add(new Miner(blockChain));
-            var block = executorService.invokeAny(miners);
-            blockChain.addBlockToBlockChain(block);
+        }
+
+        for (int i = 0; i < 5; i++) {
+            var hash = executorService.invokeAny(miners);
+            blockChain.addBlockToBlockChain(BlockFactory.createBlock(hash, i + 1));
         }
         executorService.shutdown();
-        for (Block block : blockChain.getBlockChainList()) {
+
+        for (Block block : blockChain.getBlockChain()) {
             System.out.println(block);
         }
-        executorService.shutdown();
     }
 }
