@@ -2,7 +2,7 @@ package block;
 
 import java.util.Random;
 
-final class BlockUtil {
+final public class BlockUtil {
 
     public static final String DEFAULT_HASH = "0";
 
@@ -10,9 +10,9 @@ final class BlockUtil {
 
     public static final long MIN_GENERATING_TIME = 15;
 
-    public static int currentID = 0;
-
     private static final Random random = new Random();
+
+    static int currentID = 1;
 
     static boolean isHashValid(String hash, int requiredNumberOfZeros) {
         return hash.startsWith("0".repeat(requiredNumberOfZeros));
@@ -37,6 +37,14 @@ final class BlockUtil {
         } else if (generatingTime > MAX_GENERATING_TIME) {
             blockChain.setRequiredNumberOfZeros(blockChain.getRequiredNumberOfZeros() - 1);
         }
+    }
+
+    public static String getPrevHash() {
+        var blockChainList = BlockChain.getInstance().getBlockChainList();
+        if (blockChainList.isEmpty()) {
+            return DEFAULT_HASH;
+        }
+        return blockChainList.get(blockChainList.size() - 1).hashInfo.getCurrentHash();
     }
 
 

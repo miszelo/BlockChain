@@ -1,10 +1,10 @@
 package blockchain;
 
-import ui.UI2;
+import ui.UI;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        UI2 ui = new UI2();
+        UI ui = new UI();
         ui.showMenu();
     }
 }

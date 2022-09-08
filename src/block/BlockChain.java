@@ -4,36 +4,33 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BlockChain {
-
-    private final List<Block> blockChain = new LinkedList<>();
+    private static BlockChain blockChain;
+    private final List<Block> blockChainList = new LinkedList<>();
     private int requiredNumberOfZeros = 0;
 
-    public void addBlockToBlockChain(long minerID) {
-        Block block;
-        if (blockChain.isEmpty()) {
-            block = BlockFactory.createBlock(
-                    BlockUtil.DEFAULT_HASH,
-                    requiredNumberOfZeros,
-                    minerID);
-        } else {
-            block = BlockFactory.createBlock(
-                    blockChain.get(blockChain.size() - 1).hashInfo.getCurrentHash(),
-                    requiredNumberOfZeros,
-                    minerID);
+    private BlockChain() {}
+
+    public static BlockChain getInstance() {
+        if (blockChain == null) {
+            blockChain = new BlockChain();
         }
-        BlockUtil.checkWhetherIncrementNumberOfZeros(block.hashInfo.getGeneratingTime(), this);
-        blockChain.add(block);
+        return blockChain;
     }
 
-    public List<Block> getBlockChain() {
-        return blockChain;
+    public void addBlockToBlockChain(Block block) {
+        blockChainList.add(block);
+        BlockUtil.checkWhetherIncrementNumberOfZeros(block.hashInfo.getGeneratingTime(), this);
+    }
+
+    public List<Block> getBlockChainList() {
+        return blockChainList;
     }
 
     void setRequiredNumberOfZeros(int newRequiredNumberOfZeros) {
         requiredNumberOfZeros = newRequiredNumberOfZeros;
     }
 
-    int getRequiredNumberOfZeros() {
+    public int getRequiredNumberOfZeros() {
         return requiredNumberOfZeros;
     }
 }
