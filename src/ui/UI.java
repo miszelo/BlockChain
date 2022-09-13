@@ -1,6 +1,5 @@
 package ui;
 
-import block.Block;
 import block.BlockChain;
 import block.BlockFactory;
 import block.HashInfo;
@@ -19,18 +18,18 @@ public class UI {
 
     public void showMenu() throws Exception {
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 1000; i++) {
             miners.add(new Miner(blockChain));
         }
 
         for (int i = 0; i < 5; i++) {
             var hash = executorService.invokeAny(miners);
-            blockChain.addBlockToBlockChain(BlockFactory.createBlock(hash, i + 1));
+            var block = BlockFactory.createBlock(hash, i + 1);
+            blockChain.addBlockToBlockChain(block);
         }
         executorService.shutdown();
 
-        for (Block block : blockChain.getBlockChain()) {
-            System.out.println(block);
-        }
+        blockChain.getBlockChain()
+                .forEach(System.out::println);
     }
 }
